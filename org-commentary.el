@@ -26,7 +26,7 @@
 ;; This package is not available on MELPA.  To use it you need to install it
 ;; directly from source.  One option is to use `use-package', for example:
 ;;
-;; (use-package difftastic
+;; (use-package org-commentary
 ;;   :defer t
 ;;   :vc (:url "https://github.com/pkryger/org-commentary.el.git"
 ;;        :rev :newest))
