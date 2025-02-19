@@ -1,0 +1,114 @@
+#+STARTUP: showeverything
+#+STARTUP: literallinks
+#+OPTIONS: toc:nil num:nil author:nil
+* org-commentary.el - Convert README.org into a package main file's commentary
+:PROPERTIES:
+:CUSTOM_ID: org-commentary.el---convert-readme.org-into-a-package-main-files-commentary
+:END:
+[[https://github.com/pkryger/org-commentary.el/actions/workflows/test.yml][https://github.com/pkryger/org-commentary.el/actions/workflows/test.yml/badge.svg]]
+
+** Description
+:PROPERTIES:
+:CUSTOM_ID: description
+:END:
+This package allows you to use a =README.org= file in your repository as a
+canonical source of documentation.  That is, it uses built-in =org-mode= ASCII
+export functionality to generate =Commentary= section in your package main
+file.
+
+** Installation
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
+This package is not available on MELPA.  To use it you need to install it
+directly from source.  One option is to use =use-package=, for example:
+
+#+begin_src emacs-lisp :results value silent
+(use-package difftastic
+  :defer t
+  :vc (:url "https://github.com/pkryger/org-commentary.el.git"
+       :rev :newest))
+#+end_src
+
+If you use [[https://github.com/cask/cask][Cask]] you can add the following
+your =Cask= file:
+
+#+begin_src emacs-lisp :results value silent
+(development
+ (depends-on "org-commentary"
+             :git "https://github.com/pkryger/org-commentary.el.git"))
+#+end_src
+
+** Usage
+:PROPERTIES:
+:CUSTOM_ID: usage
+:END:
+Simply write documentation in =README.org=, and when done, type =M-x
+org-commentary-update= (while still in the =README.org= buffer).  This will
+export current content of the =README.org= into a =Commentary= section of your
+package main file.
+
+The package main file is inferred from the =project= name (assumed to be the
+same as the name of the directory, the =.el= extension is added if necessary).
+Alternatively, if not such a file found the first word in the first top level
+section in =README.org= file is used as a package name (again, the =.el= is
+added if necessary).  If these methods are insufficient the variable
+=org-commentary-main-file= can be used.  When the latter is set it's tried
+first.
+
+Export is done between lines ~;;; Commentary:~ and ~;;; Code:~ so make sure
+these are present in the package main file.
+
+- /variable/: =org-commentary-main-file= the name of the package main file.
+- /command/: =org-commentary-update= update the package main file based on the
+  content of the current buffer.
+- /command/: =org-commentary-preview= generate commentary (based on the content
+  of the current buffer) and preview it in a new buffer.  If =flycheck= is
+  installed, a custom =checkdoc= checker is run in the preview buffer.
+- /command/: =org-commnentary-check= check if the export of the current buffer
+  and content of the commentary section of the package main file match.
+- /function/: =org-commetnary-check-batch= check if the export of the
+  =README.org= file and the commentary section of the package main file match,
+  for example:
+
+#+begin_src makefile :results value silent
+cask emacs -batch -L . \
+  --load org-commentary \
+  --funcall org-commentary-check-batch
+#+end_src
+
+** Similar packages                                                :noexport:
+:PROPERTIES:
+:CUSTOM_ID: similar-packages
+:END:
+- [[https://github.com/smaximov/org-commentary][org-commentary]] - Provides
+  similar functionality, but it seems to be not maintained (at the time of
+  writing in Feb 2025, the last update was from 2016).  Comparing to this
+  package, the original =org-commentary= is missing check and =flycheck=
+  functionality, and generated commentary keeps code snippets in frames and
+  it's generated with empty line endings.
+- [[https://github.com/cute-jumper/org2elcomment][org2elcomment]] - Also
+  provides an interactive function to update the commentary section of an Emacs
+  Lisp file using the contents of an Org file opened in the current buffer.
+  But it lacks preview and check functionality.  Also it uses the frames around
+  code like =org-commentary= above.
+- [[https://github.com/mgalgs/make-readme-markdown][make-readme-markdown]] - in
+  contrast to =org-commentary=, this package treats an Emacs Lisp file as the
+  canonical source of documentation. That file is used to generate =README= in
+  the Markdown format. The package provides additional features like
+  auto-detected badges and API documentation of public functions.
+** License                                                         :noexport:
+:PROPERTIES:
+:CUSTOM_ID: license
+:END:
+This package is licensed under the
+[[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3 License]].
+
+--------------
+
+Happy coding! If you encounter any issues or have suggestions for improvements,
+please don't hesitate to reach out on the
+[[https://github.com/pkryger/org-commentary.el][GitHub repository]].  Your feedback
+is highly appreciated.
+
+# LocalWords: MELPA DWIM

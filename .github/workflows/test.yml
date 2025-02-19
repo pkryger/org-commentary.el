@@ -1,0 +1,81 @@
+name: git-commentary.el - CI Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths-ignore:
+    - '**.md'
+    - '.gitignore'
+  push:
+    paths-ignore:
+    - '**.md'
+    - '.gitignore'
+  schedule:
+    - cron:  '42 7 * * SUN,MON,WED,FRI,SAT'
+
+permissions:
+  checks: write
+
+jobs:
+  ci-tests:
+    runs-on: ${{ matrix.os }}
+    env:
+      EMACS_TEST_VERBOSE: true
+      EMACS_TEST_JUNIT_REPORT: true
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+        emacs_version:
+          - 28.1
+          - 28.2
+          - 29.1
+          - 29.2
+          - 29.3
+          - 29.4
+          - snapshot
+        exclude:
+          - os: macos-latest
+        include: # processed after exclude
+          - os: macos-latest
+            emacs_version: 28.2
+          - os: macos-latest
+            emacs_version: 29.4
+          - os: macos-latest
+            emacs_version: snapshot
+
+    steps:
+    - uses: purcell/setup-emacs@master
+      with:
+        version: ${{ matrix.emacs_version }}
+    - uses: actions/checkout@v4
+    - uses: actions/cache@v4
+      id: cache-cask-packages
+      with:
+        path: .cask
+        key: cache-cask-packages-000
+    - uses: cask/setup-cask@master
+      if: steps.cache-cask-executable.outputs.cache-hit != 'true'
+      with:
+        version: snapshot
+
+    - name: Install dependencies
+      run: 'cask install'
+    - name: Byte compation
+      run: 'make bytecompile'
+    - name: 'Lint: package-lint'
+      run: 'make lint'
+    - name: 'Lint: relint'
+      run: 'make relint'
+    - name: 'Lint: checkdoc'
+      run: 'make checkdoc'
+    - name: 'Lint: commentary'
+      run: 'make commentary'
+
+    - name: Publish test report
+      uses: mikepenz/action-junit-report@v5
+      if: success() || failure() # always run even if the previous step fails
+      with:
+        include_passed: true
+        report_paths: 'test/*.t.xml'
