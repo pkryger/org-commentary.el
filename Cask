@@ -4,6 +4,7 @@
 (package-file "org-commentary.el")
 
 (development
+ (depends-on "org" "9.6")
  (depends-on "flycheck")
  (depends-on "package-lint")
  (depends-on "relint")

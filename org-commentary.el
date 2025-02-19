@@ -5,7 +5,7 @@
 ;; Author: Przemyslaw Kryger <pkryger@gmail.com>
 ;; Keywords: tools package development
 ;; Homepage: https://github.com/pkryger/org-commentry.el
-;; Package-Requires: ((emacs "28.1") (compat "29.4"))
+;; Package-Requires: ((emacs "28.1") (compat "29.4") (org "9.6"))
 ;; Version: 0.0.0
 ;; SPDX-License-Identifier: MIT
 
