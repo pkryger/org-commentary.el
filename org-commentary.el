@@ -83,7 +83,7 @@
 (require 'cl-lib)
 (require 'compat)
 (require 'diff)
-(require 'flycheck)
+(require 'flycheck nil t)
 (require 'org-element)
 (require 'ox)
 (require 'project)
