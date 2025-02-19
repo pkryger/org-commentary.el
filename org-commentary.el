@@ -84,6 +84,7 @@
 (require 'compat)
 (require 'diff)
 (require 'flycheck nil t)
+(require 'org)
 (require 'org-element)
 (require 'ox)
 (require 'project)
