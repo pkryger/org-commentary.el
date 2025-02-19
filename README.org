@@ -97,12 +97,6 @@ cask emacs -batch -L . \
   canonical source of documentation. That file is used to generate =README= in
   the Markdown format. The package provides additional features like
   auto-detected badges and API documentation of public functions.
-** License                                                         :noexport:
-:PROPERTIES:
-:CUSTOM_ID: license
-:END:
-This package is licensed under the
-[[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3 License]].
 
 --------------
 
