@@ -1,4 +1,4 @@
-name: git-commentary.el - CI Tests
+name: org-commentary.el - CI Tests
 
 on:
   workflow_dispatch:
