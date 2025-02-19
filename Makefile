@@ -31,14 +31,24 @@ relint: cask
 	  --load relint \
 	  --funcall relint-batch $(files) $(test_files)
 
+define CHECKDOC_ALLOW_CASK_EMACS
+(progn
+  (require 'rx)
+  (advice-add #'checkdoc-in-example-string-p
+             :after-until
+            (lambda (&rest _)
+              (save-match-data
+                (looking-back (rx symbol-start "cask emacs")
+                              (line-beginning-position))))))
+endef
+
+export CHECKDOC_ALLOW_CASK_EMACS
 .PHONY: checkdoc
 checkdoc: cask
-# Update checkdoc-proper-noun-list before loading checkdoc, such that the
-# defvar checkdoc-proper-noun-regexp use the new value when evaluated.
-# This is needed to allow inclusion of a cask sample in commentary.
 	cask emacs -batch -L . \
-      --eval '(setq checkdoc-proper-noun-list (list "lips" "dired"))' \
+	  --load checkdoc \
 	  --load checkdoc-batch \
+	  --eval "$$CHECKDOC_ALLOW_CASK_EMACS" \
 	  --funcall checkdoc-batch $(files)
 
 .PHONY: commentary
