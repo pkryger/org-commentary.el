@@ -33,7 +33,11 @@ relint: cask
 
 .PHONY: checkdoc
 checkdoc: cask
+# Update checkdoc-proper-noun-list before loading checkdoc, such that the
+# defvar checkdoc-proper-noun-regexp use the new value when evaluated.
+# This is needed to allow inclusion of a cask sample in commentary.
 	cask emacs -batch -L . \
+      --eval '(setq checkdoc-proper-noun-list (list "lips" "dired"))' \
 	  --load checkdoc-batch \
 	  --funcall checkdoc-batch $(files)
 
