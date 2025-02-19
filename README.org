@@ -43,10 +43,10 @@ your =Cask= file:
 :PROPERTIES:
 :CUSTOM_ID: usage
 :END:
-Simply write documentation in =README.org=, and when done, type =M-x
-org-commentary-update= (while still in the =README.org= buffer).  This will
-export current content of the =README.org= into a =Commentary= section of your
-package main file.
+Simply write documentation in =README.org=, and when done (while still in the
+=README.org= buffer), type =M-x org-commentary-update= .  This will export
+current content of the =README.org= into a =Commentary= section of your package
+main file.
 
 The package main file is inferred from the =project= name (assumed to be the
 same as the name of the directory, the =.el= extension is added if necessary).

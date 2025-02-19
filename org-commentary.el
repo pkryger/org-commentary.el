@@ -44,8 +44,8 @@
 ;; Usage
 ;; =====
 ;;
-;; Simply write documentation in `README.org', and when done, type `M-x
-;; org-commentary-update' (while still in the `README.org' buffer).  This will
+;; Simply write documentation in `README.org', and when done (while still in
+;; the `README.org' buffer), type `M-x org-commentary-update' .  This will
 ;; export current content of the `README.org' into a `Commentary' section of
 ;; your package main file.
 ;;
