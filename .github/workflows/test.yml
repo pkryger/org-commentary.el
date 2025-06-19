@@ -53,9 +53,10 @@ jobs:
       with:
         version: ${{ matrix.emacs_version }}
     - uses: actions/checkout@v4
-    - uses: cask/setup-cask@master
+
+    - uses: pkryger/setup-cached-cask@main
       with:
-        version: snapshot
+        emacs-version: ${{ matrix.emacs_version }}
 
     - name: Install dependencies
       run: 'cask install'
