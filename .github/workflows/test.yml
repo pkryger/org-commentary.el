@@ -59,7 +59,7 @@ jobs:
         emacs-version: ${{ matrix.emacs_version }}
 
     - name: Install dependencies
-      run: 'cask install'
+      run: 'make cask-install'
     - name: Byte compation
       run: 'make bytecompile'
     - name: 'Lint: package-lint'
