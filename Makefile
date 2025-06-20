@@ -4,6 +4,7 @@ CASK_DIR := $(shell cask package-directory)
 files = $$(cask files | grep -Ev 'org-commentary-(pkg|autoloads).el')
 test_files = $(wildcard test/org-commentary*.t.el)
 
+.PHONY: cask-install
 cask-install:
 	cask install
 
