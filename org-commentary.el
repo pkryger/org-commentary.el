@@ -307,16 +307,24 @@ first heading)."
                       "Missing ;;; Commentary: section in %s" ,file)))))))
 
 ;;;###autoload
-(defun org-commentary-update (buffer file)
+(defun org-commentary-update (&optional buffer file)
   "Update commentary section in FILE with export from BUFFER."
   (interactive (let ((buf (org-commentary--buffer)))
                   (list buf
                         (org-commentary--file buf))))
-  (org-commentary--with-region-and-export
-      buffer file start end export
-    (delete-region start end)
-    (insert export)
-    (save-buffer)))
+  (if-let* ((buffer (or buffer
+                        (when (derived-mode-p 'org-mode)
+                          (current-buffer))))
+            (file (or file
+                      (org-commentary--file buffer))))
+      (org-commentary--with-region-and-export
+          buffer file start end export
+        (delete-region start end)
+        (insert export)
+        (save-buffer))
+    (user-error (if buffer
+                    (format "Cannot determine file for %s" buffer)
+                  "Missing org-mode buffer"))))
 
 (defmacro org-commentary--with-temp-buffers (buffer-a buffer-b &rest body)
   "Create temporary BUFFER-A and BUFFER-B, and evaluate BODY like `progn'."
