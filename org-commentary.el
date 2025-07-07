@@ -74,9 +74,9 @@
 ;;   `README.org' file and the commentary section of the package main file
 ;;   match, for example:
 ;;
-;; cask emacs -batch -L . \
-;;   --load org-commentary \
-;;   --funcall org-commentary-check-batch
+;; cask emacs -batch -L .                          \
+;;       --load org-commentary                     \
+;;       --funcall org-commentary-check-batch
 
 ;;; Code:
 

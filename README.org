@@ -71,10 +71,10 @@ these are present in the package main file.
   =README.org= file and the commentary section of the package main file match,
   for example:
 
-#+begin_src makefile :results value silent
-cask emacs -batch -L . \
-  --load org-commentary \
-  --funcall org-commentary-check-batch
+#+begin_src bash :results value silent
+cask emacs -batch -L .                          \
+      --load org-commentary                     \
+      --funcall org-commentary-check-batch
 #+end_src
 
 ** Similar packages                                                :noexport:
