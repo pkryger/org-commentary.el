@@ -89,11 +89,6 @@
 (require 'ox)
 (require 'project)
 
-(unless (boundp 'coding-system--for-buffer-diff)
-  (defvar coding-system--for-buffer-diff nil
-    "Workaround for CI failures on Emacs-snapshot in after change made on
-2025-11-28, commit: a4c5e64b110edd344da270c521a9f485860acfcd."))
-
 (defvar org-commentary-main-file nil
   "Main package file to perform export to.")
 (put 'org-commentary-main-file 'save-local-variable #'stringp)
